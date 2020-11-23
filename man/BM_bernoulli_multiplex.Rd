@@ -12,6 +12,7 @@ parameters and node membership}
     autosave='',
     plotting=character(0),
     exploration_factor=1.5,
+    exploration_direction=numeric(0),
     explore_min=4,
     explore_max=Inf,
     ncores=detectCores())}
@@ -23,6 +24,7 @@ parameters and node membership}
 \item{plotting}{Control plot of ICL values while the estimation is running. If plotting==character(0) (the default), plots are done on screen, if plotting=='', no plot are done, if plotting is a filename, plots are done in this filename. This parameter can be changed by accessing the field $plotting of the object.}\item{exploration_factor}{Control the exploration of the number of groups. The exploration is stop when the number of groups reach exploration factor times the current maximum. By default 1.5. This parameter can be changed by accessing the field $exploration_factor of the object.}
 \item{explore_min}{Explore to the explore_min number of groups even if the exploration_factor rule is satisfied. By default 4. This parameter can be changed by accessing the field $explore_min of the object.}
 \item{explore_max}{Stop exploration after explore_max number of group in any case. By default Inf. This parameter can be changed by accessing the field $explore_max of the object.}
+\item{exploration_direction}{Only for LBM membership. Control the exploration direction for groups number. When provided, the exploring strategy is made to explore the provided group number. Must be a vector of two integer value representing the row group number and the column group number.}
 \item{ncores}{Number of parallel jobs to launch different EM intializations. By default detectCores(). This parameter can be changed by accessing the field $ncores of the object. This parameters is used only on Linux. Parallism is disabled on other plateform. (Not working on Windows, not tested on Mac OS, not tested on *BSD.)}
 
 }
@@ -34,9 +36,6 @@ parameters and node membership}
 
 ## generation of one SBM network
 npc <- 30 # nodes per class
-Q <- 3 # classes
-n <- npc * Q # nodes
-Z<-diag(Q)\%x\%matrix(1,npc,1)
 Q <- 3 # classes
 n <- npc * Q # nodes
 Z<-diag(Q)\%x\%matrix(1,npc,1)
@@ -65,9 +64,6 @@ which.max(my_model$ICL)
 
 ## generation of one SBM network
 npc <- 30 # nodes per class
-Q <- 3 # classes
-n <- npc * Q # nodes
-Z<-diag(Q)\%x\%matrix(1,npc,1)
 Q <- 3 # classes
 n <- npc * Q # nodes
 Z<-diag(Q)\%x\%matrix(1,npc,1)
